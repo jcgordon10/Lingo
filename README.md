@@ -1,7 +1,11 @@
 # Lingo Language Learning AI
 
+<img src="./Lingo.jpeg" alt="Lingo Language Learning AI" width="200" />
+</br>
+</br>
 Lingo is a friendly conversational AI designed for practicing language learning skills. Lingo is instructed to provide casual conversation for practicing language skills and is meant to make conversations fun and engaging.
-
+</br>
+</br>
 ## Features
 
 * Transcribes spoken input via Whisper
@@ -46,4 +50,4 @@ setx LINGO_API_KEY "your_api_key_here"
 
 ## License
 
-[MIT License](https://opensource.org/licenses/MIT)
+[GPL-3.0 License](https://opensource.org/license/gpl-3-0/)
