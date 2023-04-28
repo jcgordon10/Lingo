@@ -69,19 +69,21 @@ def capture_audio() -> Optional[str]:
         return None
 
 
-def transcribe_speech(filename: str) -> Optional[str]:
+def transcribe_speech(filename: str, whisper_model: str, language: str) -> Optional[str]:
     """
     Transcribes the given audio file using the Whisper ASR model.
 
     Args:
         filename (str): The name of the audio file to transcribe.
+        whisper_model (str): The whisper model to be used.
+        language (str): The intended language of the audio.
 
     Returns:
         transcript (Optional[str]): The transcribed text or None if an error occurred.
     """
     try:
-        model = whisper.load_model("tiny")
-        result = model.transcribe(filename, fp16=False)
+        model = whisper.load_model(whisper_model)
+        result = model.transcribe(filename, language=language, fp16=False)
         transcript = result["text"]
         return transcript
     except Exception as e:
@@ -89,15 +91,19 @@ def transcribe_speech(filename: str) -> Optional[str]:
         return None
 
 
-def main() -> None:
+def main(whisper_model: str, language: str) -> None:
     """
     Captures user's spoken input, transcribes it, and prints the transcript.
+    
+    Args:
+        whisper_model (str): The whisper model to be used.
+        language (str): The intended language of the audio.
     """
     # Capture user's spoken input
     audio_file = capture_audio()
     print("Recording complete.")
     if audio_file:
         # Transcribe the spoken input
-        transcript = transcribe_speech(audio_file)
+        transcript = transcribe_speech(audio_file, whisper_model, language)
         os.remove(audio_file)
         return transcript
