@@ -3,11 +3,10 @@ import transcribe_speech
 import generate_response
 import generate_audio
 import asyncio
-from config import NAME # MF
+from config import NAME
 from pydub import AudioSegment
 from pydub.playback import play
 from io import BytesIO
-# from langdetect import detect
 import argparse
 
 def output(text: str, audio_file: BytesIO) -> None:
@@ -52,8 +51,6 @@ def process_voice_question(whisper_model: str, language: str, gender: str, langu
     # Generate a response using NLP
     response_text = generate_response.converse(transcript, language_level)
 
-    # language_code = detect(response_text)
-
     # Convert the response text to speech
     audio_file = asyncio.run(get_audio_file(response_text, language, gender))
 
@@ -77,8 +74,6 @@ def process_text_question(text: str, language: str, gender: str, language_level:
     
     # Generate a response using NLP
     response_text = generate_response.converse(text, language_level)
-
-    # language_code = detect(response_text)
 
     # Convert the response text to speech
     audio_file = asyncio.run(get_audio_file(response_text, language, gender))
@@ -121,7 +116,7 @@ if __name__ == "__main__":
     parser.add_argument('whisper_model', type=str, help='Whisper model to be used.', choices=["tiny", "tiny.en", "base", "base.en", "small", "small.en"])
     parser.add_argument('language', type=str, help='The language code of the conversation. (e.g. en for English, es for spanish)', nargs='?', default='en')
     parser.add_argument('gender', type=str, help='The desired gender of the voice. (M or F)', nargs='?', default='M', choices=["M", "F"])
-    parser.add_argument('grade_level', type=str, help='The target grade level (K3, 1, 5, 10, etc)', nargs='?', default='M', choices=["K3", "K4", "K5", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"])
+    parser.add_argument('grade_level', type=str, help='The target grade level (K3, 1, 5, 10, etc)', nargs='?', default='3', choices=["K3", "K4", "K5", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"])
     args = parser.parse_args()
     whisper_model = args.whisper_model
     language = args.language
